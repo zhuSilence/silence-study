@@ -1,0 +1,5 @@
+1.alphanumeric验证：仅允许字母 and/or 数字    <input type="text" data-validation="alphanumeric">
+2.alphanumeric验证：允许字母 and/or 数字，也可添加需要的字符如"-_"，<input type="text" data-validation="alphanumeric" data-validation-allowing="-_">
+
+3.正则验证：按照给定的正则表达式进行验证，<input type="text" data-validation="custom" data-validation-regexp="^([a-z]+)$">
+4.当仅对输入框存在值的时候才验证，可以加上：data-validation-optional="true"

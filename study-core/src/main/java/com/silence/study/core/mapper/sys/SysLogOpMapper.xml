@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.silence.study.core.mapper.sys.SysLogOpMapper" >
+	<!-- Base Result Map-->
+	<resultMap id="BaseResultMap" type="com.silence.study.core.entity.sys.SysLogOpEntity" >
+		<result column="id" property="id"/>
+		<result column="create_time" property="createTime"/>
+		<result column="elapsed_time" property="elapsedTime"/>
+		<result column="exec_sql" property="execSql"/>
+		<result column="user_id" property="userId"/>
+		<result column="user_name" property="userName"/>
+		<result column="exec_type" property="execType"/>
+		<result column="exec_table" property="execTable"/>
+	</resultMap>
+
+	<!-- Extend Result Map-->
+	<resultMap id="extendResultMap" extends="BaseResultMap" type="com.silence.study.core.entity.sys.SysLogOpEntity">
+	</resultMap>
+       
+	<!-- sys_log_op table all fields -->
+	<sql id="Base_Column_List" >
+		a.id,a.create_time,a.elapsed_time,a.exec_sql,a.user_id,a.user_name,a.exec_type,a.exec_table
+	</sql>
+
+	<sql id="Extend_Column_List" >
+		a.*
+	</sql>
+   
+	<!-- 基本查询条件 -->
+	<sql id="Example_Where_Clause">
+		<where>
+			<trim  suffixOverrides="," >
+				<if test="id != null" > and id =  #{id}</if>
+				<if test="createTime != null" > and create_time =  #{createTime}</if>
+				<if test="elapsedTime != null" > and elapsed_time =  #{elapsedTime}</if>
+				<if test="execSql != null" > and exec_sql =  #{execSql}</if>
+				<if test="userId != null" > and user_id =  #{userId}</if>
+				<if test="userName != null" > and user_name =  #{userName}</if>
+				<if test="execType != null" > and exec_type =  #{execType}</if>
+				<if test="execTable != null" > and exec_table =  #{execTable}</if>
+			</trim>
+		</where>
+	</sql>
+   
+	<!-- 插入记录 -->
+	<insert id="save" parameterType="com.silence.study.core.entity.sys.SysLogOpEntity" useGeneratedKeys="true" keyProperty="id" >
+		insert into sys_log_op( 
+		<trim  suffixOverrides="," >
+			<if test="createTime != null">create_time,</if>
+			<if test="elapsedTime != null">elapsed_time,</if>
+			<if test="execSql != null">exec_sql,</if>
+			<if test="userId != null">user_id,</if>
+			<if test="userName != null">user_name,</if>
+			<if test="execType != null">exec_type,</if>
+			<if test="execTable != null">exec_table,</if>
+		</trim>
+		) values(
+		<trim  suffixOverrides="," >
+			<if test="createTime != null">now(),</if>
+			<if test="elapsedTime != null">#{elapsedTime},</if>
+			<if test="execSql != null">#{execSql},</if>
+			<if test="userId != null">#{userId},</if>
+			<if test="userName != null">#{userName},</if>
+			<if test="execType != null">#{execType},</if>
+			<if test="execTable != null">#{execTable},</if>
+		</trim>
+		)
+	</insert>
+	
+	<!-- 批量插入记录 -->
+	<insert id="saveBatch" parameterType="java.util.List">
+    	insert into sys_log_op(
+			id,create_time,elapsed_time,exec_sql,user_id,user_name,exec_type,exec_table
+		) values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.id},#{item.createTime},#{item.elapsedTime},#{item.execSql},#{item.userId},#{item.userName},#{item.execType},#{item.execTable})
+		</foreach>  
+  	</insert>
+
+	<!-- 根据id，修改记录-->  
+	<update id="update" parameterType="com.silence.study.core.entity.sys.SysLogOpEntity" >
+		update sys_log_op 
+		set create_time=now(),elapsed_time=#{elapsedTime},exec_sql=#{execSql},user_id=#{userId},user_name=#{userName},exec_type=#{execType},exec_table=#{execTable} 
+		where id=#{id}
+	</update>
+ 
+	<!-- 修改记录，只修改只不为空的字段 -->
+	<update id="updateSelective" parameterType="com.silence.study.core.entity.sys.SysLogOpEntity" >
+		update sys_log_op set 
+		<trim  suffixOverrides="," >
+			<if test="createTime != null "> create_time=#{createTime},</if>
+			<if test="elapsedTime != null "> elapsed_time=#{elapsedTime},</if>
+			<if test="execSql != null "> exec_sql=#{execSql},</if>
+			<if test="userId != null "> user_id=#{userId},</if>
+			<if test="userName != null "> user_name=#{userName},</if>
+			<if test="execType != null "> exec_type=#{execType},</if>
+			<if test="execTable != null "> exec_table=#{execTable},</if>
+		</trim>
+		where id=#{id}
+	</update>
+
+	<!-- 修改记录，只修改只不为空的字段 -->
+	<update id="updateQuery" >
+		update sys_log_op set 
+		<trim  suffixOverrides="," >
+			<if test="entity.createTime != null "> create_time=#{entity.createTime},</if>
+			<if test="entity.elapsedTime != null "> elapsed_time=#{entity.elapsedTime},</if>
+			<if test="entity.execSql != null "> exec_sql=#{entity.execSql},</if>
+			<if test="entity.userId != null "> user_id=#{entity.userId},</if>
+			<if test="entity.userName != null "> user_name=#{entity.userName},</if>
+			<if test="entity.execType != null "> exec_type=#{entity.execType},</if>
+			<if test="entity.execTable != null "> exec_table=#{entity.execTable},</if>
+		</trim>
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete from sys_log_op
+		where id = #{id}
+	</delete>
+	
+	<!-- 按id批量删除记录 -->
+	<delete id="deleteBatchIds">
+		delete from sys_log_op
+		<where>
+			id in
+			<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</where>
+	</delete>
+	
+	<!-- 按条件批量删除记录 -->
+	<delete id="deleteBatch" parameterType = "com.silence.study.core.entity.sys.SysLogOpEntity">
+		delete from sys_log_op
+		<include refid="Example_Where_Clause"/> 
+	</delete>
+
+	<!-- 按条件批量删除记录 -->
+	<delete id="deleteQuery" parameterType = "com.origin.eurybia.jdbc.query.Query">
+		delete from sys_log_op
+	</delete>
+ 
+	<!-- 根据id查询 ${codeName} -->
+	<select id="queryId"  resultMap="BaseResultMap" parameterType="Object">
+		select 
+			 <include refid="Base_Column_List" /> 
+		from sys_log_op a
+		WHERE a.id = #{id}
+	</select>
+
+	<!-- ${codeName} 符合条件总数-->
+	<select id="queryCount" resultType="java.lang.Integer"  parameterType = "com.origin.eurybia.jdbc.query.Query">
+		select count(1) from sys_log_op a
+	</select>
+  	
+	<!-- 查询${codeName}列表 -->
+	<select id="queryList" resultMap="extendResultMap"  parameterType = "com.origin.eurybia.jdbc.query.Query">
+		select 
+			 <include refid="Base_Column_List" /> 
+		from sys_log_op a
+	</select>
+	
+	<!-- ${codeName}分页查询 -->
+	<select id="queryPage" resultMap="extendResultMap"  parameterType="com.origin.eurybia.jdbc.plugin.Pager">
+		select 
+			 <include refid="Extend_Column_List" /> 
+		from sys_log_op a
+	</select>
+
+</mapper>   

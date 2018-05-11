@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.silence.study.core.mapper.sys.SysRunMapper" >
+	<!-- Base Result Map-->
+	<resultMap id="BaseResultMap" type="com.silence.study.core.entity.sys.SysRunEntity" >
+		<result column="run_id" property="runId"/>
+		<result column="run_comm" property="runComm"/>
+		<result column="run_name" property="runName"/>
+		<result column="run_btn" property="runBtn"/>
+		<result column="run_btn_icon" property="runBtnIcon"/>
+		<result column="run_mod" property="runMod"/>
+		<result column="seq" property="seq"/>
+	</resultMap>
+
+	<!-- Extend Result Map-->
+	<resultMap id="extendResultMap" extends="BaseResultMap" type="com.silence.study.core.entity.sys.SysRunEntity">
+	</resultMap>
+       
+	<!-- sys_run table all fields -->
+	<sql id="Base_Column_List" >
+		a.run_id,a.run_comm,a.run_name,a.run_btn,a.run_btn_icon,a.run_mod,a.seq
+	</sql>
+
+	<sql id="Extend_Column_List" >
+		a.*
+	</sql>
+   
+	<!-- 基本查询条件 -->
+	<sql id="Example_Where_Clause">
+		<where>
+			<trim  suffixOverrides="," >
+				<if test="runId != null" > and run_id =  #{runId}</if>
+				<if test="runComm != null" > and run_comm =  #{runComm}</if>
+				<if test="runName != null" > and run_name =  #{runName}</if>
+				<if test="runBtn != null" > and run_btn =  #{runBtn}</if>
+				<if test="runBtnIcon != null" > and run_btn_icon =  #{runBtnIcon}</if>
+				<if test="runMod != null" > and run_mod =  #{runMod}</if>
+				<if test="seq != null" > and seq =  #{seq}</if>
+			</trim>
+		</where>
+	</sql>
+   
+	<!-- 插入记录 -->
+	<insert id="save" parameterType="com.silence.study.core.entity.sys.SysRunEntity" useGeneratedKeys="true" keyProperty="runId" >
+		insert into sys_run(run_id,run_comm,run_name,run_btn,run_btn_icon,run_mod,seq)
+		values(#{runId},#{runComm},#{runName},#{runBtn},#{runBtnIcon},#{runMod},#{seq})
+	</insert>
+	
+	<!-- 批量插入记录 -->
+	<insert id="saveBatch" parameterType="java.util.List">
+    	insert into sys_run(
+			run_id,run_comm,run_name,run_btn,run_btn_icon,run_mod,seq
+		) values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.runId},#{item.runComm},#{item.runName},#{item.runBtn},#{item.runBtnIcon},#{item.runMod},#{item.seq})
+		</foreach>  
+  	</insert>
+
+	<!-- 根据id，修改记录-->  
+	<update id="update" parameterType="com.silence.study.core.entity.sys.SysRunEntity" >
+		update sys_run 
+		set run_comm=#{runComm},run_name=#{runName},run_btn=#{runBtn},run_btn_icon=#{runBtnIcon},run_mod=#{runMod},seq=#{seq} 
+		where run_id=#{runId}
+	</update>
+ 
+	<!-- 修改记录，只修改只不为空的字段 -->
+	<update id="updateSelective" parameterType="com.silence.study.core.entity.sys.SysRunEntity" >
+		update sys_run set 
+		<trim  suffixOverrides="," >
+			<if test="runComm != null "> run_comm=#{runComm},</if>
+			<if test="runName != null "> run_name=#{runName},</if>
+			<if test="runBtn != null "> run_btn=#{runBtn},</if>
+			<if test="runBtnIcon != null "> run_btn_icon=#{runBtnIcon},</if>
+			<if test="runMod != null "> run_mod=#{runMod},</if>
+			<if test="seq != null "> seq=#{seq},</if>
+		</trim>
+		where run_id=#{runId}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete from sys_run
+		where run_id = #{runId}
+	</delete>
+	
+	<!-- 按id批量删除记录 -->
+	<delete id="deleteBatchIds">
+		delete from sys_run
+		<where>
+			run_id in
+			<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</where>
+	</delete>
+	
+	<!-- 按条件批量删除记录 -->
+	<delete id="deleteBatch" parameterType = "com.silence.study.core.entity.sys.SysRunEntity">
+		delete from sys_run
+		<include refid="Example_Where_Clause"/> 
+	</delete>
+
+	<!-- 按条件批量删除记录 -->
+	<delete id="deleteQuery" parameterType = "com.origin.eurybia.jdbc.query.Query">
+		delete from sys_run
+	</delete>
+ 
+	<!-- 根据id查询 ${codeName} -->
+	<select id="queryId"  resultMap="BaseResultMap" parameterType="Object">
+		select 
+			 <include refid="Base_Column_List" /> 
+		from sys_run a
+		WHERE a.run_id = #{runId}
+	</select>
+
+	<!-- ${codeName} 符合条件总数-->
+	<select id="queryCount" resultType="java.lang.Integer"  parameterType = "com.origin.eurybia.jdbc.query.Query">
+		select count(1) from sys_run a
+	</select>
+  	
+	<!-- 查询${codeName}列表 -->
+	<select id="queryList" resultMap="extendResultMap"  parameterType = "com.origin.eurybia.jdbc.query.Query">
+		select 
+			 <include refid="Base_Column_List" /> 
+		from sys_run a
+	</select>
+	
+	<!-- ${codeName}分页查询 -->
+	<select id="queryPage" resultMap="extendResultMap"  parameterType="com.origin.eurybia.jdbc.plugin.Pager">
+		select 
+			 <include refid="Extend_Column_List" /> 
+		from sys_run a
+	</select>
+
+</mapper>   

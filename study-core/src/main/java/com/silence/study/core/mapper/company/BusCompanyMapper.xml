@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.silence.study.core.mapper.company.BusCompanyMapper" >
+	<!-- Base Result Map-->
+	<resultMap id="BaseResultMap" type="com.silence.study.core.entity.company.BusCompanyEntity" >
+		<result column="company_id" property="companyId"/>
+		<result column="company_name" property="companyName"/>
+		<result column="company_english_name" property="companyEnglishName"/>
+		<result column="address" property="address"/>
+		<result column="register_time" property="registerTime"/>
+		<result column="legal_person" property="legalPerson"/>
+		<result column="register_add" property="registerAdd"/>
+		<result column="register_number" property="registerNumber"/>
+		<result column="register_money" property="registerMoney"/>
+		<result column="official_website" property="officialWebsite"/>
+		<result column="record_status" property="recordStatus"/>
+		<result column="contact_person" property="contactPerson"/>
+		<result column="contact_phone" property="contactPhone"/>
+		<result column="description" property="description"/>
+		<result column="create_time" property="createTime"/>
+	</resultMap>
+
+	<!-- Extend Result Map-->
+	<resultMap id="extendResultMap" extends="BaseResultMap" type="com.silence.study.core.entity.company.BusCompanyEntity">
+	</resultMap>
+       
+	<!-- bus_company table all fields -->
+	<sql id="Base_Column_List" >
+		a.company_id,a.company_name,a.company_english_name,a.address,a.register_time,a.legal_person,a.register_add,a.register_number,a.register_money,a.official_website,a.record_status,a.contact_person,a.contact_phone,a.description,a.create_time
+	</sql>
+
+	<sql id="Extend_Column_List" >
+		a.*
+	</sql>
+   
+	<!-- 基本查询条件 -->
+	<sql id="Example_Where_Clause">
+		<where>
+			<trim  suffixOverrides="," >
+				<if test="companyId != null" > and company_id =  #{companyId}</if>
+				<if test="companyName != null" > and company_name =  #{companyName}</if>
+				<if test="companyEnglishName != null" > and company_english_name =  #{companyEnglishName}</if>
+				<if test="address != null" > and address =  #{address}</if>
+				<if test="registerTime != null" > and register_time =  #{registerTime}</if>
+				<if test="legalPerson != null" > and legal_person =  #{legalPerson}</if>
+				<if test="registerAdd != null" > and register_add =  #{registerAdd}</if>
+				<if test="registerNumber != null" > and register_number =  #{registerNumber}</if>
+				<if test="registerMoney != null" > and register_money =  #{registerMoney}</if>
+				<if test="officialWebsite != null" > and official_website =  #{officialWebsite}</if>
+				<if test="recordStatus != null" > and record_status =  #{recordStatus}</if>
+				<if test="contactPerson != null" > and contact_person =  #{contactPerson}</if>
+				<if test="contactPhone != null" > and contact_phone =  #{contactPhone}</if>
+				<if test="description != null" > and description =  #{description}</if>
+				<if test="createTime != null" > and create_time =  #{createTime}</if>
+			</trim>
+		</where>
+	</sql>
+   
+	<!-- 插入记录 -->
+	<insert id="save" parameterType="com.silence.study.core.entity.company.BusCompanyEntity" useGeneratedKeys="true" keyProperty="companyId" >
+		insert into bus_company( 
+		<trim  suffixOverrides="," >
+			<if test="companyName != null">company_name,</if>
+			<if test="companyEnglishName != null">company_english_name,</if>
+			<if test="address != null">address,</if>
+			<if test="registerTime != null">register_time,</if>
+			<if test="legalPerson != null">legal_person,</if>
+			<if test="registerAdd != null">register_add,</if>
+			<if test="registerNumber != null">register_number,</if>
+			<if test="registerMoney != null">register_money,</if>
+			<if test="officialWebsite != null">official_website,</if>
+			<if test="recordStatus != null">record_status,</if>
+			<if test="contactPerson != null">contact_person,</if>
+			<if test="contactPhone != null">contact_phone,</if>
+			<if test="description != null">description,</if>
+			<if test="createTime != null">create_time,</if>
+		</trim>
+		) values(
+		<trim  suffixOverrides="," >
+			<if test="companyName != null">#{companyName},</if>
+			<if test="companyEnglishName != null">#{companyEnglishName},</if>
+			<if test="address != null">#{address},</if>
+			<if test="registerTime != null">#{registerTime},</if>
+			<if test="legalPerson != null">#{legalPerson},</if>
+			<if test="registerAdd != null">#{registerAdd},</if>
+			<if test="registerNumber != null">#{registerNumber},</if>
+			<if test="registerMoney != null">#{registerMoney},</if>
+			<if test="officialWebsite != null">#{officialWebsite},</if>
+			<if test="recordStatus != null">#{recordStatus},</if>
+			<if test="contactPerson != null">#{contactPerson},</if>
+			<if test="contactPhone != null">#{contactPhone},</if>
+			<if test="description != null">#{description},</if>
+			<if test="createTime != null">now(),</if>
+		</trim>
+		)
+	</insert>
+	
+	<!-- 批量插入记录 -->
+	<insert id="saveBatch" parameterType="java.util.List">
+    	insert into bus_company(
+			company_id,company_name,company_english_name,address,register_time,legal_person,register_add,register_number,register_money,official_website,record_status,contact_person,contact_phone,description,create_time
+		) values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.companyId},#{item.companyName},#{item.companyEnglishName},#{item.address},#{item.registerTime},#{item.legalPerson},#{item.registerAdd},#{item.registerNumber},#{item.registerMoney},#{item.officialWebsite},#{item.recordStatus},#{item.contactPerson},#{item.contactPhone},#{item.description},#{item.createTime})
+		</foreach>  
+  	</insert>
+
+	<!-- 根据id，修改记录-->  
+	<update id="update" parameterType="com.silence.study.core.entity.company.BusCompanyEntity" >
+		update bus_company 
+		set company_name=#{companyName},company_english_name=#{companyEnglishName},address=#{address},register_time=#{registerTime},legal_person=#{legalPerson},register_add=#{registerAdd},register_number=#{registerNumber},register_money=#{registerMoney},official_website=#{officialWebsite},record_status=#{recordStatus},contact_person=#{contactPerson},contact_phone=#{contactPhone},description=#{description},create_time=now() 
+		where company_id=#{companyId}
+	</update>
+ 
+	<!-- 修改记录，只修改只不为空的字段 -->
+	<update id="updateSelective" parameterType="com.silence.study.core.entity.company.BusCompanyEntity" >
+		update bus_company set 
+		<trim  suffixOverrides="," >
+			<if test="companyName != null "> company_name=#{companyName},</if>
+			<if test="companyEnglishName != null "> company_english_name=#{companyEnglishName},</if>
+			<if test="address != null "> address=#{address},</if>
+			<if test="registerTime != null "> register_time=#{registerTime},</if>
+			<if test="legalPerson != null "> legal_person=#{legalPerson},</if>
+			<if test="registerAdd != null "> register_add=#{registerAdd},</if>
+			<if test="registerNumber != null "> register_number=#{registerNumber},</if>
+			<if test="registerMoney != null "> register_money=#{registerMoney},</if>
+			<if test="officialWebsite != null "> official_website=#{officialWebsite},</if>
+			<if test="recordStatus != null "> record_status=#{recordStatus},</if>
+			<if test="contactPerson != null "> contact_person=#{contactPerson},</if>
+			<if test="contactPhone != null "> contact_phone=#{contactPhone},</if>
+			<if test="description != null "> description=#{description},</if>
+			<if test="createTime != null "> create_time=#{createTime},</if>
+		</trim>
+		where company_id=#{companyId}
+	</update>
+
+	<!-- 修改记录，只修改只不为空的字段 -->
+	<update id="updateQuery" >
+		update bus_company set 
+		<trim  suffixOverrides="," >
+			<if test="entity.companyName != null "> company_name=#{entity.companyName},</if>
+			<if test="entity.companyEnglishName != null "> company_english_name=#{entity.companyEnglishName},</if>
+			<if test="entity.address != null "> address=#{entity.address},</if>
+			<if test="entity.registerTime != null "> register_time=#{entity.registerTime},</if>
+			<if test="entity.legalPerson != null "> legal_person=#{entity.legalPerson},</if>
+			<if test="entity.registerAdd != null "> register_add=#{entity.registerAdd},</if>
+			<if test="entity.registerNumber != null "> register_number=#{entity.registerNumber},</if>
+			<if test="entity.registerMoney != null "> register_money=#{entity.registerMoney},</if>
+			<if test="entity.officialWebsite != null "> official_website=#{entity.officialWebsite},</if>
+			<if test="entity.recordStatus != null "> record_status=#{entity.recordStatus},</if>
+			<if test="entity.contactPerson != null "> contact_person=#{entity.contactPerson},</if>
+			<if test="entity.contactPhone != null "> contact_phone=#{entity.contactPhone},</if>
+			<if test="entity.description != null "> description=#{entity.description},</if>
+			<if test="entity.createTime != null "> create_time=#{entity.createTime},</if>
+		</trim>
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete from bus_company
+		where company_id = #{companyId}
+	</delete>
+	
+	<!-- 按id批量删除记录 -->
+	<delete id="deleteBatchIds">
+		delete from bus_company
+		<where>
+			company_id in
+			<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</where>
+	</delete>
+	
+	<!-- 按条件批量删除记录 -->
+	<delete id="deleteBatch" parameterType = "com.silence.study.core.entity.company.BusCompanyEntity">
+		delete from bus_company
+		<include refid="Example_Where_Clause"/> 
+	</delete>
+
+	<!-- 按条件批量删除记录 -->
+	<delete id="deleteQuery" parameterType = "com.origin.eurybia.jdbc.query.Query">
+		delete from bus_company
+	</delete>
+ 
+	<!-- 根据id查询 ${codeName} -->
+	<select id="queryId"  resultMap="BaseResultMap" parameterType="Object">
+		select 
+			 <include refid="Base_Column_List" /> 
+		from bus_company a
+		WHERE a.company_id = #{companyId}
+	</select>
+
+	<!-- ${codeName} 符合条件总数-->
+	<select id="queryCount" resultType="java.lang.Integer"  parameterType = "com.origin.eurybia.jdbc.query.Query">
+		select count(1) from bus_company a
+	</select>
+  	
+	<!-- 查询${codeName}列表 -->
+	<select id="queryList" resultMap="extendResultMap"  parameterType = "com.origin.eurybia.jdbc.query.Query">
+		select 
+			 <include refid="Base_Column_List" /> 
+		from bus_company a
+	</select>
+	
+	<!-- ${codeName}分页查询 -->
+	<select id="queryPage" resultMap="extendResultMap"  parameterType="com.origin.eurybia.jdbc.plugin.Pager">
+		select 
+			 <include refid="Extend_Column_List" /> 
+		from bus_company a
+	</select>
+
+</mapper>   

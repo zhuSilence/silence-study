@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.silence.study.core.mapper.album.BusAlbumDetailMapper" >
+	<!-- Base Result Map-->
+	<resultMap id="BaseResultMap" type="com.silence.study.core.entity.album.BusAlbumDetailEntity" >
+		<result column="album_detail_id" property="albumDetailId"/>
+		<result column="picture_url" property="pictureUrl"/>
+		<result column="album_id" property="albumId"/>
+		<result column="create_time" property="createTime"/>
+	</resultMap>
+
+	<!-- Extend Result Map-->
+	<resultMap id="extendResultMap" extends="BaseResultMap" type="com.silence.study.core.entity.album.BusAlbumDetailEntity">
+	</resultMap>
+       
+	<!-- bus_album_detail table all fields -->
+	<sql id="Base_Column_List" >
+		a.album_detail_id,a.picture_url,a.album_id,a.create_time
+	</sql>
+
+	<sql id="Extend_Column_List" >
+		a.*
+	</sql>
+   
+	<!-- 基本查询条件 -->
+	<sql id="Example_Where_Clause">
+		<where>
+			<trim  suffixOverrides="," >
+				<if test="albumDetailId != null" > and album_detail_id =  #{albumDetailId}</if>
+				<if test="pictureUrl != null" > and picture_url =  #{pictureUrl}</if>
+				<if test="albumId != null" > and album_id =  #{albumId}</if>
+				<if test="createTime != null" > and create_time =  #{createTime}</if>
+			</trim>
+		</where>
+	</sql>
+   
+	<!-- 插入记录 -->
+	<insert id="save" parameterType="com.silence.study.core.entity.album.BusAlbumDetailEntity" useGeneratedKeys="true" keyProperty="albumDetailId" >
+		insert into bus_album_detail( 
+		<trim  suffixOverrides="," >
+			<if test="pictureUrl != null">picture_url,</if>
+			<if test="albumId != null">album_id,</if>
+			<if test="createTime != null">create_time,</if>
+		</trim>
+		) values(
+		<trim  suffixOverrides="," >
+			<if test="pictureUrl != null">#{pictureUrl},</if>
+			<if test="albumId != null">#{albumId},</if>
+			<if test="createTime != null">now(),</if>
+		</trim>
+		)
+	</insert>
+	
+	<!-- 批量插入记录 -->
+	<insert id="saveBatch" parameterType="java.util.List">
+    	insert into bus_album_detail(
+			album_detail_id,picture_url,album_id,create_time
+		) values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.albumDetailId},#{item.pictureUrl},#{item.albumId},#{item.createTime})
+		</foreach>  
+  	</insert>
+
+	<!-- 根据id，修改记录-->  
+	<update id="update" parameterType="com.silence.study.core.entity.album.BusAlbumDetailEntity" >
+		update bus_album_detail 
+		set picture_url=#{pictureUrl},album_id=#{albumId},create_time=now() 
+		where album_detail_id=#{albumDetailId}
+	</update>
+ 
+	<!-- 修改记录，只修改只不为空的字段 -->
+	<update id="updateSelective" parameterType="com.silence.study.core.entity.album.BusAlbumDetailEntity" >
+		update bus_album_detail set 
+		<trim  suffixOverrides="," >
+			<if test="pictureUrl != null "> picture_url=#{pictureUrl},</if>
+			<if test="albumId != null "> album_id=#{albumId},</if>
+			<if test="createTime != null "> create_time=#{createTime},</if>
+		</trim>
+		where album_detail_id=#{albumDetailId}
+	</update>
+
+	<!-- 修改记录，只修改只不为空的字段 -->
+	<update id="updateQuery" >
+		update bus_album_detail set 
+		<trim  suffixOverrides="," >
+			<if test="entity.pictureUrl != null "> picture_url=#{entity.pictureUrl},</if>
+			<if test="entity.albumId != null "> album_id=#{entity.albumId},</if>
+			<if test="entity.createTime != null "> create_time=#{entity.createTime},</if>
+		</trim>
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete from bus_album_detail
+		where album_detail_id = #{albumDetailId}
+	</delete>
+	
+	<!-- 按id批量删除记录 -->
+	<delete id="deleteBatchIds">
+		delete from bus_album_detail
+		<where>
+			album_detail_id in
+			<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</where>
+	</delete>
+	
+	<!-- 按条件批量删除记录 -->
+	<delete id="deleteBatch" parameterType = "com.silence.study.core.entity.album.BusAlbumDetailEntity">
+		delete from bus_album_detail
+		<include refid="Example_Where_Clause"/> 
+	</delete>
+
+	<!-- 按条件批量删除记录 -->
+	<delete id="deleteQuery" parameterType = "com.origin.eurybia.jdbc.query.Query">
+		delete from bus_album_detail
+	</delete>
+ 
+	<!-- 根据id查询 ${codeName} -->
+	<select id="queryId"  resultMap="BaseResultMap" parameterType="Object">
+		select 
+			 <include refid="Base_Column_List" /> 
+		from bus_album_detail a
+		WHERE a.album_detail_id = #{albumDetailId}
+	</select>
+
+	<!-- ${codeName} 符合条件总数-->
+	<select id="queryCount" resultType="java.lang.Integer"  parameterType = "com.origin.eurybia.jdbc.query.Query">
+		select count(1) from bus_album_detail a
+	</select>
+  	
+	<!-- 查询${codeName}列表 -->
+	<select id="queryList" resultMap="extendResultMap"  parameterType = "com.origin.eurybia.jdbc.query.Query">
+		select 
+			 <include refid="Base_Column_List" /> 
+		from bus_album_detail a
+	</select>
+	
+	<!-- ${codeName}分页查询 -->
+	<select id="queryPage" resultMap="extendResultMap"  parameterType="com.origin.eurybia.jdbc.plugin.Pager">
+		select 
+			 <include refid="Extend_Column_List" /> 
+		from bus_album_detail a
+	</select>
+
+</mapper>   

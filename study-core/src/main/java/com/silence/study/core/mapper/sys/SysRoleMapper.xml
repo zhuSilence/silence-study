@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.silence.study.core.mapper.sys.SysRoleMapper" >
+	<!-- Base Result Map-->
+	<resultMap id="BaseResultMap" type="com.silence.study.core.entity.sys.SysRoleEntity" >
+		<result column="role_id" property="roleId"/>
+		<result column="role_name" property="roleName"/>
+		<result column="seq" property="seq"/>
+		<result column="role_remark" property="roleRemark"/>
+	</resultMap>
+
+	<!-- Extend Result Map-->
+	<resultMap id="extendResultMap" extends="BaseResultMap" type="com.silence.study.core.entity.sys.SysRoleEntity">
+		<collection property="roleMenuModList" column="{roleId = role_id}" select="selectRolesMenu" />
+	</resultMap>
+
+	<select id="selectRolesMenu" parameterType="map" resultMap="com.silence.study.core.mapper.sys.SysRoleMenuModMapper.BaseResultMap">
+		SELECT * FROM sys_role_menu_mod WHERE role_id = #{roleId}
+	</select>
+       
+	<!-- sys_role table all fields -->
+	<sql id="Base_Column_List" >
+		a.role_id,a.role_name,a.seq,a.role_remark
+	</sql>
+
+	<sql id="Extend_Column_List" >
+		a.*
+	</sql>
+   
+	<!-- 基本查询条件 -->
+	<sql id="Example_Where_Clause">
+		<where>
+			<trim  suffixOverrides="," >
+				<if test="roleId != null" > and role_id =  #{roleId}</if>
+				<if test="roleName != null" > and role_name =  #{roleName}</if>
+				<if test="seq != null" > and seq =  #{seq}</if>
+				<if test="roleRemark != null" > and role_remark =  #{roleRemark}</if>
+			</trim>
+		</where>
+	</sql>
+   
+	<!-- 插入记录 -->
+	<insert id="save" parameterType="com.silence.study.core.entity.sys.SysRoleEntity" useGeneratedKeys="true" keyProperty="roleId" >
+		insert into sys_role(role_id,role_name,seq,role_remark)
+		values(#{roleId},#{roleName},#{seq},#{roleRemark})
+	</insert>
+	
+	<!-- 批量插入记录 -->
+	<insert id="saveBatch" parameterType="java.util.List">
+    	insert into sys_role(
+			role_id,role_name,seq,role_remark
+		) values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.roleId},#{item.roleName},#{item.seq},#{item.roleRemark})
+		</foreach>  
+  	</insert>
+
+	<!-- 根据id，修改记录-->  
+	<update id="update" parameterType="com.silence.study.core.entity.sys.SysRoleEntity" >
+		update sys_role 
+		set role_name=#{roleName},seq=#{seq},role_remark=#{roleRemark} 
+		where role_id=#{roleId}
+	</update>
+ 
+	<!-- 修改记录，只修改只不为空的字段 -->
+	<update id="updateSelective" parameterType="com.silence.study.core.entity.sys.SysRoleEntity" >
+		update sys_role set 
+		<trim  suffixOverrides="," >
+			<if test="roleName != null "> role_name=#{roleName},</if>
+			<if test="seq != null "> seq=#{seq},</if>
+			<if test="roleRemark != null "> role_remark=#{roleRemark},</if>
+		</trim>
+		where role_id=#{roleId}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete from sys_role
+		where role_id = #{roleId}
+	</delete>
+	
+	<!-- 按id批量删除记录 -->
+	<delete id="deleteBatchIds">
+		delete from sys_role
+		<where>
+			role_id in
+			<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</where>
+	</delete>
+	
+	<!-- 按条件批量删除记录 -->
+	<delete id="deleteBatch" parameterType = "com.silence.study.core.entity.sys.SysRoleEntity">
+		delete from sys_role
+		<include refid="Example_Where_Clause"/> 
+	</delete>
+
+	<!-- 按条件批量删除记录 -->
+	<delete id="deleteQuery" parameterType = "com.origin.eurybia.jdbc.query.Query">
+		delete from sys_role
+	</delete>
+ 
+	<!-- 根据id查询 ${codeName} -->
+	<select id="queryId"  resultMap="BaseResultMap" parameterType="Object">
+		select 
+			 <include refid="Base_Column_List" /> 
+		from sys_role a
+		WHERE a.role_id = #{roleId}
+	</select>
+
+	<!-- ${codeName} 符合条件总数-->
+	<select id="queryCount" resultType="java.lang.Integer"  parameterType = "com.origin.eurybia.jdbc.query.Query">
+		select count(1) from sys_role a
+	</select>
+  	
+	<!-- 查询${codeName}列表 -->
+	<select id="queryList" resultMap="extendResultMap"  parameterType = "com.origin.eurybia.jdbc.query.Query">
+		select 
+			 <include refid="Base_Column_List" /> 
+		from sys_role a
+	</select>
+	
+	<!-- ${codeName}分页查询 -->
+	<select id="queryPage" resultMap="extendResultMap"  parameterType="com.origin.eurybia.jdbc.plugin.Pager">
+		select 
+			 <include refid="Extend_Column_List" /> 
+		from sys_role a
+	</select>
+
+</mapper>   

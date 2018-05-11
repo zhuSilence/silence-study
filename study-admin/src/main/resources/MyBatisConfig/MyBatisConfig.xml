@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <!-- 开启全局性设置懒加载 -->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!-- 开启按需加载 -->
+        <setting name="aggressiveLazyLoading" value="false"/>
+    </settings>
+    <plugins>
+        <!-- 分页插件 -->
+        <plugin interceptor="com.origin.eurybia.jdbc.plugin.mybatis.PagePlugin">
+            <!-- 当前数据库类型 mysql|oracle -->
+            <property name="databaseType" value="mysql"/>
+        </plugin>
+    </plugins>
+    <!-- 创建实体别名
+    <typeAliases>
+        <typeAlias alias="MybatisMemcachedCache" type="com.origin.server.cached.MybatisMemcachedCache" />
+    </typeAliases>
+      -->
+    <!--这里添加的是执行CRUD操作的接口对应的配置文件(xml文件)可以不用设置
+        如果DAO接口与配置文件在同一个目录，可以不用设置
+    <mappers>
+           <mapper resource="com/coocaa/core/mapper/sys/UserDao.xml"/>
+    </mappers>-->
+</configuration>

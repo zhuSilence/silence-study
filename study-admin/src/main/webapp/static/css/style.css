@@ -1,0 +1,453 @@
+body {
+    font: 13px/1.5 'Hiragino Sans GB',Tahoma,'Simsun','Microsoft Yahei';
+    color: #676a6c;
+    overflow-x: hidden;
+    height: 100%;
+}
+
+.wrapper {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.wrapper {
+    padding: 0 20px;
+}
+
+.wrapper-content {
+    padding: 20px;
+}
+
+.ibox {
+    clear: both;
+    margin-bottom: 25px;
+    margin-top: 0;
+    padding: 0;
+}
+
+.ibox.collapsed .ibox-content {
+    display: none;
+}
+
+.ibox.collapsed .fa.fa-chevron-up:before {
+    content: "\f078";
+}
+
+.ibox.collapsed .fa.fa-chevron-down:before {
+    content: "\f077";
+}
+
+.ibox:after,
+.ibox:before {
+    display: table;
+}
+
+.ibox-title {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #ffffff;
+    border-color: #e7eaec;
+    border-image: none;
+    border-style: solid solid none;
+    border-width: 4px 0px 0;
+    color: inherit;
+    margin-bottom: 0;
+    padding: 14px 15px 7px;
+    min-height: 48px;
+}
+
+.ibox-content {
+    background-color: #ffffff;
+    color: inherit;
+    padding: 15px 20px 20px 20px;
+    border-color: #e7eaec;
+    border-image: none;
+    border-style: solid solid none;
+    border-width: 1px 0px;
+}
+
+.ibox-content {
+    clear: both;
+}
+
+.ibox-heading {
+    background-color: #f3f6fb;
+    border-bottom: none;
+}
+
+.ibox-heading h3 {
+    font-weight: 200;
+    font-size: 24px;
+}
+
+.ibox-title h5 {
+    display: inline-block;
+    font-size: 14px;
+    margin: 0 0 7px;
+    padding: 0;
+    text-overflow: ellipsis;
+    float: left;
+}
+
+.ibox-title .label {
+    float: left;
+    margin-left: 4px;
+}
+
+.ibox-tools {
+    display: inline-block;
+    float: right;
+    margin-top: 0;
+    position: relative;
+    padding: 0;
+}
+
+.ibox-tools a {
+    cursor: pointer;
+    margin-left: 5px;
+    color: #c4c4c4;
+}
+
+.ibox-tools a.btn-primary {
+    color: #fff;
+}
+
+.ibox-tools .dropdown-menu > li > a {
+    padding: 4px 10px;
+    font-size: 12px;
+}
+
+.ibox .open > .dropdown-menu {
+    left: auto;
+    right: 0;
+}
+
+/**新增修改界面相关样式**/
+.opt-wrapper {
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    overflow-x: hidden;
+}
+.opt-content{
+   maring:10px;
+    padding: 15px;
+   background-color: #fff;
+}
+.opt-content .form-title{color: #333;}
+.opt-content .row .form-group label{font-size: 14px;font-weight: 400;}
+.opt-content .row .form-group label.val{color: #2f4050;}
+.opt-content .form-group > label{font-size: 14px;font-weight: 400;}
+.opt-content .row .form-group .form-control{border-radius:0px;}
+.opt-content .form-split {
+    background-color: #fff;
+    clear: both;
+    border: 0px;
+    border-bottom: 1px solid #eee;
+    margin: 10px -15px 20px -15px;
+}
+
+/* 图片列表展示 */
+.pic-list {
+}
+
+.pic-list:after {
+    height: 0;
+    display: block;
+    clear: both;
+    visibility: hidden;
+    content: '.';
+    font-size: 0
+}
+
+.pic-list ul {
+    padding: 0px;
+    overflow: hidden;
+    list-style: none;
+    margin-left: -12px;
+}
+
+.pic-list li {
+    width: 25%;
+    min-width: 250px;
+    float: left;
+    text-align: center;
+    z-index: 0;
+
+}
+
+.pic-list li.r {
+    margin-right: 0
+}
+
+.pic-list li .in {
+    padding: 6px;
+    margin: 0 0 12px 12px;
+    position: relative;
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: 0px 0px 4px #ccc;
+    background: #fff;
+}
+
+.pic-list li .in .img-div {
+    display: block;
+    overflow: hidden;
+    position: relative;
+}
+
+.pic-list li .in .img-div img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.pic-list li .in .img-div span {
+    position: absolute;
+    bottom: 3px;
+    right: 3px;
+    font-size: 18px;
+    color: #99cc33;
+    background: #2f4050;
+    padding: 3px;
+    border-radius: 2px 2px 2px 2px;
+    opacity: 0.8;
+    filter: alpha(opacity=80);
+}
+
+.pic-list li .con-div {
+    text-align: left;
+    display: block;
+    height: 46px;
+    margin-top: 5px;
+}
+
+.pic-list li .tit_ {
+    margin: 0px 0 5px 0;
+    text-align: left;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #2f4050;
+    font-size: 13px;
+    line-height: 23px;
+}
+
+.pic-list li .con-div p {
+    font-size: 10px;
+    color: #999;
+}
+
+.pic-list li .con-div b {
+    display: block;
+    color: #d13a3e
+}
+
+.pic-list li .con-div .state {
+    color: #99cc33;
+}
+
+.pic-list li.pic .original {
+    display: none;
+    padding: 5px;
+    padding-bottom: 0;
+    border: 1px solid #d13a3e;
+    position: absolute;
+    text-align: center;
+    left: -16px;
+    top: -59px;
+    background: #fff;
+}
+
+.pic-list li.pic .original .imga {
+    display: block;
+}
+
+.pic-list li .original img {
+    *height: 250px;
+    *width: auto;
+}
+
+.pic-list li .original span {
+    height: 36px;
+    padding-top: 0
+}
+
+.pic-list li .original b {
+    line-height: 36px;
+}
+
+.pic-list li.on {
+    z-index: 999
+}
+
+.pic-list li.on .original {
+    display: block;
+    z-index: 100;
+}
+
+.img-responsive {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    transition: .8s;
+    -webkit-transition: .8s;
+    cursor: pointer;
+}
+
+.pic-list li:hover .img-responsive {
+    transform: scale(1.2);
+    -webkit-transform: scale(1.2)
+}
+
+/** input-spinner  begin **/
+.spinner {
+    width: 100px;
+}
+.spinner input {
+    text-align: right;
+}
+.input-group-btn-vertical {
+    position: relative;
+    white-space: nowrap;
+    width: 1%;
+    vertical-align: middle;
+    display: table-cell;
+}
+.input-group-btn-vertical > .btn {
+    display: block;
+    float: none;
+    width: 100%;
+    max-width: 100%;
+    padding: 8px;
+    margin-left: -1px;
+    position: relative;
+    border-radius: 0;
+}
+.input-group-btn-vertical > .btn:first-child {
+    border-top-right-radius: 4px;
+}
+.input-group-btn-vertical > .btn:last-child {
+    margin-top: -2px;
+    border-bottom-right-radius: 4px;
+}
+.input-group-btn-vertical i{
+    position: absolute;
+    top: 0;
+    left: 4px;
+}
+/** input-spinner  end **/
+
+
+
+/** 左右选择框样式 **/
+.list-select{
+    width: 520px;
+    font-size: 12px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+.list-select .list-title{
+    width: 510px;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 10px;
+    border-bottom: 1px solid #adadad;
+    cursor: move;
+    background: #c0f0f3;
+}
+.list-select .list-body{
+    width: 100%;
+}
+.list-body .item-box, .list-body .center-box{
+    display: inline-block;
+    height: 260px;
+}
+.list-body .right-box-title{
+    height: 26px;
+    line-height: 26px;
+    width: 180px;
+    padding-left: 5px;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+}
+.list-body .right-box-title button{
+    margin-right: 3px;
+    margin-top: 3px;
+}
+.list-body .left-box, .list-body .right-box {
+    width: 180px;
+    border: 1px solid #ccc;
+    background: #fff;
+    overflow-y: auto;
+}
+.list-body .right-box{
+    height: 234px;
+}
+.list-body .center-box{
+    width: 55px;
+    overflow: auto;
+}
+
+.list-body .item{
+    display: block;
+    text-align: left;
+    padding-left: 10px;
+    line-height: 25px;
+    border-bottom: 1px #eee solid;
+}
+.list-body .item:hover{
+    background: #337ab7;
+    color: #fff;
+    cursor: pointer;
+}
+.list-body .item-box .selected-item{
+    background: rgba(0, 0, 255, 0.25);
+}
+
+.list-body .center-box > button{
+    display: block;
+    color: #434343;
+    width: 30px;
+    height: 30px;
+    background: #fff;
+    font-size: 14px;
+    border: 1px solid #dcdcdc;
+    border-radius: 2px;
+    margin: 20px auto;
+    margin-top: 120px;
+}
+.list-body .center-box > button:hover{
+    background: #e7e7e7;
+    border-color: #ccc;
+    cursor: pointer;
+}
+.list-select .list-footer{
+    height: 40px;
+    line-height: 40px;
+    border-top: 1px solid #adadad;
+    text-align: center;
+    background: #c0f0f3;
+}
+.list-footer > button{
+    display: block;
+    color: #434343;
+    width: 80px;
+    height: 30px;
+    background: #fff;
+    font-size: 14px;
+    border: 1px solid #dcdcdc;
+    border-radius: 2px;
+    margin: 5px auto;
+}
+.list-footer > button:hover{
+    background: #e7e7e7;
+    border-color: #ccc;
+    cursor: pointer;
+}

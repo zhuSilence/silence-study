@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.silence.study.core.mapper.sys.SysRoleMenuModMapper" >
+	<!-- Base Result Map-->
+	<resultMap id="BaseResultMap" type="com.silence.study.core.entity.sys.SysRoleMenuModEntity" >
+		<result column="role_id" property="roleId"/>
+		<result column="menu_id" property="menuId"/>
+		<result column="run_mod" property="runMod"/>
+	</resultMap>
+
+	<!-- Extend Result Map-->
+	<resultMap id="extendResultMap" extends="BaseResultMap" type="com.silence.study.core.entity.sys.SysRoleMenuModEntity">
+		<association property="sysRole" column="role_id" resultMap="com.silence.study.core.mapper.sys.SysRoleMapper.BaseResultMap">
+		</association>
+		<association property="sysMenu" column="menu_id" resultMap="com.silence.study.core.mapper.sys.SysMenuMapper.BaseResultMap">
+		</association>
+	</resultMap>
+       
+	<!-- sys_role_menu_mod table all fields -->
+	<sql id="Base_Column_List" >
+		a.role_id,a.menu_id,a.run_mod
+	</sql>
+
+	<sql id="Extend_Column_List" >
+		a.*,b.*,c.*
+	</sql>
+   
+	<!-- 基本查询条件 -->
+	<sql id="Example_Where_Clause">
+		<where>
+			<trim  suffixOverrides="," >
+				<if test="roleId != null" > and role_id =  #{roleId}</if>
+				<if test="menuId != null" > and menu_id =  #{menuId}</if>
+				<if test="runMod != null" > and run_mod =  #{runMod}</if>
+			</trim>
+		</where>
+	</sql>
+   
+	<!-- 插入记录 -->
+	<insert id="save" parameterType="com.silence.study.core.entity.sys.SysRoleMenuModEntity" useGeneratedKeys="true" keyProperty="roleId" >
+		insert into sys_role_menu_mod(role_id,menu_id,run_mod)
+		values(#{roleId},#{menuId},#{runMod})
+	</insert>
+	
+	<!-- 批量插入记录 -->
+	<insert id="saveBatch" parameterType="java.util.List">
+    	insert into sys_role_menu_mod(
+			role_id,menu_id,run_mod
+		) values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.roleId},#{item.menuId},#{item.runMod})
+		</foreach>  
+  	</insert>
+
+	<!-- 根据id，修改记录-->  
+	<update id="update" parameterType="com.silence.study.core.entity.sys.SysRoleMenuModEntity" >
+		update sys_role_menu_mod 
+		set menu_id=#{menuId},run_mod=#{runMod} 
+		where role_id=#{roleId}
+	</update>
+ 
+	<!-- 修改记录，只修改只不为空的字段 -->
+	<update id="updateSelective" parameterType="com.silence.study.core.entity.sys.SysRoleMenuModEntity" >
+		update sys_role_menu_mod set 
+		<trim  suffixOverrides="," >
+			<if test="menuId != null "> menu_id=#{menuId},</if>
+			<if test="runMod != null "> run_mod=#{runMod},</if>
+		</trim>
+		where role_id=#{roleId}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete from sys_role_menu_mod
+		where role_id = #{roleId}
+	</delete>
+	
+	<!-- 按id批量删除记录 -->
+	<delete id="deleteBatchIds">
+		delete from sys_role_menu_mod
+		<where>
+			role_id in
+			<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</where>
+	</delete>
+	
+	<!-- 按条件批量删除记录 -->
+	<delete id="deleteBatch" parameterType = "com.silence.study.core.entity.sys.SysRoleMenuModEntity">
+		delete from sys_role_menu_mod
+		<include refid="Example_Where_Clause"/> 
+	</delete>
+
+	<!-- 按条件批量删除记录 -->
+	<delete id="deleteQuery" parameterType = "com.origin.eurybia.jdbc.query.Query">
+		delete from sys_role_menu_mod
+	</delete>
+ 
+	<!-- 根据id查询 ${codeName} -->
+	<select id="queryId"  resultMap="BaseResultMap" parameterType="Object">
+		select 
+			 <include refid="Base_Column_List" /> 
+		from sys_role_menu_mod a
+			left join sys_role b on(a.role_id = b.role_id)
+			left join sys_menu c on(a.menu_id = c.menu_id)
+		WHERE a.role_id = #{roleId}
+	</select>
+
+	<!-- ${codeName} 符合条件总数-->
+	<select id="queryCount" resultType="java.lang.Integer"  parameterType = "com.origin.eurybia.jdbc.query.Query">
+		select count(1) from sys_role_menu_mod a
+			left join sys_role b on(a.role_id = b.role_id)
+			left join sys_menu c on(a.menu_id = c.menu_id)
+	</select>
+  	
+	<!-- 查询${codeName}列表 -->
+	<select id="queryList" resultMap="extendResultMap"  parameterType = "com.origin.eurybia.jdbc.query.Query">
+		select 
+			 <include refid="Base_Column_List" /> 
+		from sys_role_menu_mod a
+			left join sys_role b on(a.role_id = b.role_id)
+			left join sys_menu c on(a.menu_id = c.menu_id)
+	</select>
+	
+	<!-- ${codeName}分页查询 -->
+	<select id="queryPage" resultMap="extendResultMap"  parameterType="com.origin.eurybia.jdbc.plugin.Pager">
+		select 
+			 <include refid="Extend_Column_List" /> 
+		from sys_role_menu_mod a
+			left join sys_role b on(a.role_id = b.role_id)
+			left join sys_menu c on(a.menu_id = c.menu_id)
+	</select>
+
+	<select id="getModByMenuId" resultType="int" parameterType="map">
+		SELECT a.run_mod
+		FROM sys_role_menu_mod a
+		LEFT JOIN sys_menu b ON (a.menu_id = b.menu_id)
+		WHERE b.elid = #{menuElId} AND a.role_id IN
+		<foreach item="item" index="index" collection="roleIds" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+		ORDER BY a.run_mod DESC LIMIT 0,1
+	</select>
+
+</mapper>   

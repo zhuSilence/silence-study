@@ -1,0 +1,78 @@
+/**
+ * Created by siber.xu on 2015/11/8.
+ */
+var SysLogLoginEdit = jClass.extend({
+    init: function () {
+        _this = this;
+        $form = $('#form');
+
+        var formDataMd5;
+
+        /** 开启表单验证 **/
+        $.validate({
+            form: 'form',
+            lang: 'cn'
+        });
+        /** 保存 **/
+        $('#btnSave').click(function () {
+            _this.save(function () {
+                formDataMd5 = null;
+                $('#form').resetForm();
+                $('#btnBack').trigger('click');
+            });
+        });
+        /** 返回 **/
+        $('#btnBack,#btnBottomBack').click(function () {
+            if (formDataMd5 != null && formDataMd5 != $.md5(JSON.stringify($form.serializeJson()))) {
+                $alert.confirm("当前数据有修改是否保存？", function () {
+                    $('#btnSave').trigger('click');
+                    $alert.closeAll();
+                }, function () {
+                    window.location.href = _this.urls.view;
+                });
+            } else {
+                window.location.href = _this.urls.view;
+            }
+        });
+        /** 重置 **/
+        $('#btnReset').click(function () {
+            $('#form').resetForm();
+        });
+
+        $api.post(_this.urls.data, {id: id}, function (res) {
+            if (res.success) {
+                $('form').JsonToForm(res.data);
+                formDataMd5 = $.md5(JSON.stringify($form.serializeJson()))
+            } else {
+                $alert.msg(res.msg);
+            }
+        });
+    },
+    urls: {
+        view: 'index.html',
+        save: 'save.html',
+        data: 'data.html'
+    },
+    save: function (callback) {
+        var _this = this;
+        var form = $('#form');
+        if (form.isValid()) {
+            var param = form.serializeJson();
+            $api.post(_this.urls.save, param, function (data) {
+                if (data.success) {
+                    if ($.isFunction(callback)) {
+                        callback(data);
+                    }
+                } else {
+                    $alert.alert($alert.errmsg.saveError);
+                }
+            });
+        }
+    }
+})
+
+$(function () {
+
+    new SysLogLoginEdit();
+
+});

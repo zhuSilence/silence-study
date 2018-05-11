@@ -1,0 +1,50 @@
+body{background-color: #f4f4f4;}
+
+.show-head {
+    height: 45px;
+    border: 1px solid #dee0e2;
+    background: #fff;
+}
+
+.show-head .head-nav h4 {
+    margin: 0px;
+    line-height: 45px;
+    padding-left: 15px;
+    color: #666;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+#tool .tit {
+    margin: 18px 0 0 19px;
+    display: inline-block;
+    float: left;
+    font-size: 12px;
+    color: #999;
+}
+
+#tool .tit span {
+    margin-right: 5px;
+    color: #99cc33;
+    font-size: 14px;
+}
+
+#tool .r {
+    float: right;
+    margin: 10px 20px 0 0
+}
+
+.show-chart, .ibox-title {
+    margin: 10px 0 0 0;
+    border: 1px solid #dee0e2;
+    background: #fff;
+}
+
+.show-chart .chart-box {
+    height: 400px;
+    padding: 10px;
+}
+
+.fixed-table-toolbar .bars, .fixed-table-toolbar .search, .fixed-table-toolbar .columns {
+    margin-top: 0px;
+}
