@@ -7,6 +7,8 @@ import com.origin.eurybia.jdbc.plugin.Pager;
 import com.origin.eurybia.jdbc.query.Query;
 import com.origin.eurybia.jdbc.query.SortOperator;
 import com.origin.eurybia.jdbc.query.WhereOperator;
+import com.origin.eurybia.utils.DateUtils;
+import com.origin.eurybia.utils.StringUtils;
 import com.silence.study.admin.base.BaseController;
 import com.silence.study.admin.utils.ResultMsg;
 import com.silence.study.core.entity.company.BusCompanyEntity;
@@ -110,7 +112,17 @@ public class BusCompanyController extends BaseController {
         pager.setPageSize(model.getRows());
 
         //查询条件
+        String createTimeBegin = null;
+        String createTimeEnd = null;
+        if (model.getCreateTime() != null) {
+            createTimeBegin = DateUtils.formatDate(model.getCreateTime(), "yyyy-MM-dd 00:00:00");
+            createTimeEnd = DateUtils.formatDate(model.getCreateTime(), "yyyy-MM-dd 23:59:59");
+            model.setCreateTime(null);
+        }
         WhereOperator whereOperator = getQueryTerm(BusCompanyEntity.class, model);
+        if (StringUtils.isNotBlank(createTimeBegin) && StringUtils.isNotBlank(createTimeEnd)) {
+            whereOperator.and("createTime").between(createTimeBegin, createTimeEnd);
+        }
         pager.addWhereOperator(whereOperator);
         //排序
         SortOperator sortOperator = getSortTerm(BusCompanyEntity.class, model);

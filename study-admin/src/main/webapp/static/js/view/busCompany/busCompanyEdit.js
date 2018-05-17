@@ -44,7 +44,9 @@ var BusCompanyEdit = jClass.extend({
 
         $api.post(_this.urls.data, {companyId: id}, function (res) {
             if (res.success) {
-                $('form').JsonToForm(res.data);
+                // $('form').JsonToForm(res.data);
+                $.extend(busCompany.$data, res.data);
+                busCompany.$forceUpdate();
                 formDataMd5 = $.md5(JSON.stringify($form.serializeJson()))
             } else {
                 $alert.msg(res.msg);
@@ -60,7 +62,8 @@ var BusCompanyEdit = jClass.extend({
         var _this = this;
         var form = $('#form');
         if (form.isValid()) {
-            var param = form.serializeJson();
+            // var param = form.serializeJson();
+            param = busCompany.$data;
             $api.post(_this.urls.save, param, function (data) {
                 if (data.success) {
                     parent.callback();
@@ -75,8 +78,30 @@ var BusCompanyEdit = jClass.extend({
     }
 });
 
+var busCompany;
 $(function () {
 
+    busCompany = new Vue({
+        el: '#form',
+        data: {
+            companyId: 0,
+            companyName: '',
+            companyEnglishName: '',
+            address: '',
+            registerTime: '',
+            registerNumber: '',
+            legalPerson: '',
+            registerAdd: '',
+            registerMoney: 0,
+            officialWebsite: '',
+            contactPerson: '',
+            contactPhone: '',
+            description: '',
+        },
+        methods: {
+
+        }
+    });
     new BusCompanyEdit();
 
 });

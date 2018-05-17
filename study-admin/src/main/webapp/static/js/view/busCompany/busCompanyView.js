@@ -12,104 +12,122 @@ var BusCompanyGrid = DataGridClass.extend({
             align: 'center'
         }, {
             field: 'companyId',
-            title: '自增主键',
+            title: 'ID',
             sortable: true,
-            query : {
-                type : 'number'            }
+            query: {
+                type: 'number'
+            }
         }, {
             field: 'companyName',
-            title: '公司中文名称',
+            title: '中文名称',
             sortable: true,
-            query : {
-                type : 'text'
-                            }
+            query: {
+                type: 'text'
+            }
         }, {
             field: 'companyEnglishName',
-            title: '公司英文名称',
+            title: '英文名称',
             sortable: true,
-            query : {
-                type : 'text'
-                            }
+            query: {
+                type: 'text'
+            }
         }, {
             field: 'address',
             title: '公司地址',
-            sortable: true,
-            query : {
-                type : 'text'
-                            }
+            sortable: false,
+            visible: false
         }, {
             field: 'registerTime',
-            title: '公司注册成立时间',
-            sortable: true,
-            query : {
-                type : 'date'            }
+            title: '注册时间',
+            visible: false,
+            sortable: false
         }, {
             field: 'legalPerson',
             title: '法定代表人',
             sortable: true,
-            query : {
-                type : 'text'
-                            }
+            query: {
+                type: 'text'
+            }
         }, {
             field: 'registerAdd',
             title: '注册地',
             sortable: true,
-            query : {
-                type : 'text'
-                            }
+            query: {
+                type: 'text'
+            }
         }, {
             field: 'registerNumber',
             title: '注册号',
-            sortable: true,
-            query : {
-                type : 'text'
-                            }
+            sortable: false,
+            visible: false,
+            query: {
+                type: 'text'
+            }
         }, {
             field: 'registerMoney',
-            title: '注册基本，单位万元人民币',
-            sortable: true,
-            query : {
-                type : 'number'            }
+            title: '注册资本',
+            sortable: false,
+            visible: false
         }, {
             field: 'officialWebsite',
             title: '公司官网',
             sortable: true,
-            query : {
-                type : 'text'
-                            }
+            query: {
+                type: 'text'
+            }
         }, {
             field: 'recordStatus',
-            title: '记录状态-1删除0草稿1发布2下线',
+            title: '状态',
             sortable: true,
-            query : {
-                type : 'number'            }
+            formatter: function (value) {
+                if (value === 2) {
+                    return '下线';
+                } else if (value === 1) {
+                    return '发布中';
+                } else if (value === 0) {
+                    return '草稿';
+                } else if (value === -1) {
+                    return '删除';
+                } else {
+                    return '未知状态';
+                }
+            },
+            query: {
+                type: 'select',
+                data: [
+                    {name: "草稿", value: "0"},
+                    {name: "发布中", value: "1"},
+                    {name: "下线", value: "2"},
+                    {name: "删除", value: "-1"},
+                ]
+            }
         }, {
             field: 'contactPerson',
             title: '公司联系人',
             sortable: true,
-            query : {
-                type : 'text'
-                            }
+            query: {
+                type: 'text'
+            }
         }, {
             field: 'contactPhone',
             title: '联系电话',
-            sortable: true,
-            query : {
-                type : 'text'
-                            }
+            sortable: true
         }, {
             field: 'description',
             title: '公司描述',
-            sortable: true,
-            query : {
-                type : 'text'
-                            }
+            visible: false,
+            sortable: false
         }, {
             field: 'createTime',
-            title: '记录创建时间',
+            title: '创建时间',
             sortable: true,
-            query : {
-                type : 'date'            }
+            width:100,
+            formatter: function (v) {
+                return (new Date(v).Format('yyyy-MM-dd'));
+            },
+            query: {
+                type: 'date'
+            }
         }];
         this._super(columns, opt);
     },
@@ -122,7 +140,9 @@ var dataGrid;
 $(function () {
 
     var opt = {
-        idField: 'companyId'
+        idField: 'companyId',
+        sortName: 'companyId',
+        sortOrder: 'desc'
     };
     dataGrid = new BusCompanyGrid(opt);
     dataGrid.createGrid("#data-list");
