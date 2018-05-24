@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>酷开广告系统管理平台</title>
+    <title>管理系统后台</title>
     <link rel="stylesheet" href="${urls.StaticPath}/static/bootstrap/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="${urls.StaticPath}/static/bootstrap/font-awesome/css/font-awesome.css"/>
     <link rel="stylesheet" href="${urls.StaticPath}/static/bootstrap/plugins/formValidator/theme-default.min.css"/>
@@ -19,7 +19,7 @@
     <nav class="header navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <a href="index.html" class="brand title">
-                <span style="color: #ccc;">酷开广告系统</span><span style="color: #ccc">管理平台</span>
+                <span style="color: #ccc;">SILENCE</span><span style="color: #ccc">管理平台</span>
             </a>
             <ul class="nav pull-right">
 
@@ -44,7 +44,7 @@
         </div>
     </nav>
     <div class="menu-title">
-        <h3 class="pull-left">GreenSalad</h3>
+        <h3 class="pull-left">Silence Study</h3>
 
         <div class="pull-right">
             <button class="btn btn-success btn-sm navbar-minimalize"><i class="fa fa-bars"></i></button>

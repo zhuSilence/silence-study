@@ -49,7 +49,7 @@ var BusCompanyAdd = jClass.extend({
     save: function (callback) {
         var form = $('#form');
         if (form.isValid()) {
-            var param = form.serializeJson();
+            var param = busCompany.$data;
             $api.post('save.html', param, function (data) {
                 if (data.success) {
                     parent.callback();
@@ -64,7 +64,29 @@ var BusCompanyAdd = jClass.extend({
     }
 });
 
+var busCompany;
 $(function () {
+    busCompany = new Vue({
+        el: '#form',
+        data: {
+            companyName: '',
+            companyEnglishName: '',
+            address: '',
+            registerTime: '',
+            registerNumber: '',
+            legalPerson: '',
+            registerAdd: '',
+            registerMoney: 0,
+            officialWebsite: '',
+            contactPerson: '',
+            contactPhone: '',
+            description: '',
+        },
+        created: function () {},
+        methods: {
+
+        }
+    });
 
     new BusCompanyAdd();
 
