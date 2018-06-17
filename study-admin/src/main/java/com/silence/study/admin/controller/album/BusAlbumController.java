@@ -7,7 +7,9 @@ import com.origin.eurybia.jdbc.plugin.Pager;
 import com.origin.eurybia.jdbc.query.Query;
 import com.origin.eurybia.jdbc.query.SortOperator;
 import com.origin.eurybia.jdbc.query.WhereOperator;
+import com.origin.eurybia.utils.JsonUtils;
 import com.silence.study.admin.base.BaseController;
+import com.silence.study.admin.service.AlbumService;
 import com.silence.study.admin.utils.ResultMsg;
 import com.silence.study.core.entity.album.BusAlbumEntity;
 import com.silence.study.core.model.album.BusAlbumModel;
@@ -15,8 +17,11 @@ import com.silence.study.core.service.album.BusAlbumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +41,9 @@ public class BusAlbumController extends BaseController {
     @Autowired(required = false)
     private BusAlbumService busAlbumService;
 
+    @Autowired
+    private AlbumService albumService;
+
     /**
      * 公司相册表视图
      *
@@ -48,7 +56,7 @@ public class BusAlbumController extends BaseController {
 
         Map<String, Object> map = new HashMap<>();
 
-        return RenderView("busAlbum/busAlbumView", map);
+        return RenderView("busAlbum/busAlbumView2", map);
     }
 
     /**
@@ -130,7 +138,7 @@ public class BusAlbumController extends BaseController {
      *
      * @return
      * @throws Exception
-     */
+ */
     @Auth(verifyAuthority = true, authorityType = AuthEnum.AuthorityEnum.BROWSER)
     @RequestMapping(value = "/detail")
     public ModelAndView detailView(@RequestParam Integer id) throws Exception {
@@ -160,37 +168,40 @@ public class BusAlbumController extends BaseController {
     /**
      * 修改记录
      *
-     * @param id
+     * @param albumId
      * @return
      * @throws Exception
      */
     @Auth(verifyAuthority = true, authorityType = AuthEnum.AuthorityEnum.EDIT)
     @RequestMapping("/edit")
-    public ModelAndView edit(@RequestParam Integer id) throws Exception {
+    public ModelAndView edit(@RequestParam Integer albumId) throws Exception {
 
         Map<String, Object> map = new HashMap<>();
-        map.put("id", id);
+        map.put("id", albumId);
+        map.put("albumEntity", JsonUtils.obj2Json(busAlbumService.queryOne("albumId", albumId)));
 
-        return RenderView("busAlbum/busAlbumEdit", map);
+        return RenderView("busAlbum/busAlbumAdd", map);
     }
 
     /**
      * 新增、编辑保存
      *
-     * @param entity
+     * @param model
      * @return
      * @throws Exception
      */
     @Auth(verifyAuthority = true, authorityType = AuthEnum.AuthorityEnum.SAVE)
     @RequestMapping(value = "save", produces = "text/html;charset=UTF-8", method = RequestMethod.POST)
     @ResponseBody
-    public ResultMsg save(@RequestBody BusAlbumEntity entity) throws Exception {
+    public ResultMsg save(@RequestBody BusAlbumModel model) throws Exception {
 
-        if (entity.getAlbumId() == null) {
-            busAlbumService.save(entity);
-        } else {
-            busAlbumService.updateSelective(entity);
-        }
+        albumService.saveAlbum(model);
+
+//        if (entity.getAlbumId() == null) {
+//            busAlbumService.save(entity);
+//        } else {
+//            busAlbumService.updateSelective(entity);
+//        }
         return new ResultMsg(true, "数据保存成功");
 
     }
@@ -206,7 +217,7 @@ public class BusAlbumController extends BaseController {
     @ResponseBody
     public ResultMsg remove(@RequestBody Integer[] ids) {
 
-        busAlbumService.deleteBatch(ids);
-        return new ResultMsg(true);
+        albumService.deleteBatch(ids);
+        return new ResultMsg(true, "删除成功");
     }
 }

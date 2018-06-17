@@ -54,6 +54,20 @@ public class BusCompanyController extends BaseController {
     }
 
     /**
+     * 公司选择页面
+     *
+     * @return
+     * @throws Exception
+     */
+    @Auth(verifyAuthority = true, authorityType = AuthEnum.AuthorityEnum.BROWSER)
+    @RequestMapping(value = "/select")
+    public ModelAndView select() throws Exception {
+
+        Map<String, Object> map = new HashMap<>(16);
+
+        return RenderView("busCompany/select", map);
+    }
+    /**
      * 获取单条记录
      *
      * @param model

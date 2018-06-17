@@ -17,16 +17,16 @@ var BusCompanyDetail = jClass.extend({
                 $('form').JsonToForm(res.data);
                 //-1删除0草稿1发布中2下线
                 if (res.data.recordStatus == -1) {
-                    $('name="recordStatus"').text('删除');
+                    $('[name="recordStatus"]').text('删除');
                 }
                 if (res.data.recordStatus == 0) {
-                    $('name="recordStatus"').text('草稿');
+                    $('[name="recordStatus"]').text('草稿');
                 }
                 if (res.data.recordStatus == 1) {
-                    $('name="recordStatus"').text('发布中');
+                    $('[name="recordStatus"]').text('发布中');
                 }
                 if (res.data.recordStatus == 2) {
-                    $('name="recordStatus"').text('下线');
+                    $('[name="recordStatus"]').text('下线');
                 }
             } else {
                 $alert.msg(res.msg);

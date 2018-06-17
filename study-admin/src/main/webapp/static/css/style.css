@@ -1,5 +1,5 @@
 body {
-    font: 13px/1.5 'Hiragino Sans GB',Tahoma,'Simsun','Microsoft Yahei';
+    font: 13px/1.5 'Hiragino Sans GB', Tahoma, 'Simsun', 'Microsoft Yahei';
     color: #676a6c;
     overflow-x: hidden;
     height: 100%;
@@ -7,10 +7,6 @@ body {
 
 .wrapper {
     width: 100%;
-    overflow-x: hidden;
-}
-
-.wrapper {
     padding: 0 20px;
 }
 
@@ -131,23 +127,90 @@ body {
     padding: 10px;
     overflow-x: hidden;
 }
-.opt-content{
-   maring:10px;
+
+.opt-content {
+    maring: 10px;
     padding: 15px;
-   background-color: #fff;
+    background-color: #fff;
 }
-.opt-content .form-title{color: #333;}
-.opt-content .row .form-group label{font-size: 14px;font-weight: 400;}
-.opt-content .row .form-group label.val{color: #2f4050;}
-.opt-content .form-group > label{font-size: 14px;font-weight: 400;}
-.opt-content .row .form-group .form-control{border-radius:0px;}
+
+.opt-content .form-title {
+    color: #3c763d;
+    font-size: 16px;
+    border-left: 2px solid #3c763d;
+    padding-left: 5px;
+}
+
+.opt-content .row .form-group label {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.opt-content .row .form-group label.val {
+    color: #2f4050;
+}
+
+.opt-content .form-group > label {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.opt-content .row .form-group .form-control {
+    border-radius: 0px;
+}
+
 .opt-content .form-split {
     background-color: #fff;
     clear: both;
     border: 0px;
     border-bottom: 1px solid #eee;
-    margin: 10px -15px 20px -15px;
+    margin: 10px -15px 10px -15px;
 }
+
+/** input-spinner  begin **/
+.spinner {
+    width: 100px;
+}
+
+.spinner input {
+    text-align: right;
+}
+
+.input-group-btn-vertical {
+    position: relative;
+    white-space: nowrap;
+    width: 1%;
+    vertical-align: middle;
+    display: table-cell;
+}
+
+.input-group-btn-vertical > .btn {
+    display: block;
+    float: none;
+    width: 100%;
+    max-width: 100%;
+    padding: 8px;
+    margin-left: -1px;
+    position: relative;
+    border-radius: 0;
+}
+
+.input-group-btn-vertical > .btn:first-child {
+    border-top-right-radius: 4px;
+}
+
+.input-group-btn-vertical > .btn:last-child {
+    margin-top: -2px;
+    border-bottom-right-radius: 4px;
+}
+
+.input-group-btn-vertical i {
+    position: absolute;
+    top: 0;
+    left: 4px;
+}
+
+/** input-spinner  end **/
 
 /* 图片列表展示 */
 .pic-list {
@@ -302,43 +365,136 @@ body {
     -webkit-transform: scale(1.2)
 }
 
-/** input-spinner  begin **/
-.spinner {
-    width: 100px;
+/** 素材上传插件 **/
+.media-group{
 }
-.spinner input {
-    text-align: right;
+.sucai-list {
+    overflow: hidden;
 }
-.input-group-btn-vertical {
+
+.sucai-list .sucai-inner {
+    float: left;
+    width: 264px;
+    height: 149px;
     position: relative;
-    white-space: nowrap;
-    width: 1%;
-    vertical-align: middle;
-    display: table-cell;
+    border: 1px solid #dcdee3;
+    margin-right: 10px;
 }
-.input-group-btn-vertical > .btn {
-    display: block;
-    float: none;
-    width: 100%;
-    max-width: 100%;
-    padding: 8px;
-    margin-left: -1px;
-    position: relative;
-    border-radius: 0;
-}
-.input-group-btn-vertical > .btn:first-child {
-    border-top-right-radius: 4px;
-}
-.input-group-btn-vertical > .btn:last-child {
-    margin-top: -2px;
-    border-bottom-right-radius: 4px;
-}
-.input-group-btn-vertical i{
+
+.sucai-box {
     position: absolute;
     top: 0;
-    left: 4px;
+    left: 0;
+    z-index: 1;
 }
-/** input-spinner  end **/
+
+.sucai-box .sucai-img-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 262px;
+    height: 147px;
+    background: url("../images/img_thumb.png");
+}
+.sucai-box .sucai-img-container img{
+    width: 100%;
+    height: 100%;
+}
+
+.sucai-box .sucai-img-container video{
+    width: 100%;
+    height: 100%;
+}
+
+.sucai-box .sucai-img-boxbg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 262px;
+    height: 147px;
+    z-index: 2;
+    text-align: center;
+    background: #333;
+    filter:alpha(opacity=50); -moz-opacity:0.5; -khtml-opacity: 0.5; opacity: 0.5;
+}
+
+.sucai-box .sucai-img-standard i{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+}
+
+.sucai-box .sucai-img-standard {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 262px;
+    height: 147px;
+    z-index: 2;
+    text-align: center;
+}
+
+.sucai-box .sucai-img-standard .standard-size {
+    margin-top: 35px;
+    font-size: 16px;
+    color: #999;
+}
+
+.sucai-box .sucai-img-standard .standard-size .c-red {
+    padding: 0px;
+}
+
+.c-warn, .c-red {
+    color: #e33244;
+}
+
+.sucai-box .sucai-img-standard .c-tx3 {
+    margin-top: 3px;
+    font-size: 12px;
+}
+
+.c-tx3 {
+    color: #ccc;
+}
+
+/** 标签列表 **/
+.tag-list{
+    margin-top: 10px;
+}
+.tag-list .tag-item {
+    color: #787d82;
+    cursor: pointer;
+    margin: 1px;
+    text-decoration: none;
+}
+
+.tag-item {
+    background: #F2EFED;
+    color: #787d82;
+    float: left;
+    font-size: 12px;
+    height: 20px;
+    line-height: 20px;
+    padding: 0 10px;
+    transition: all .25s ease 0s;
+    white-space: nowrap;
+    word-wrap: break-word;
+    text-decoration: none;
+    border-radius: 2px;
+}
+
+.tag-item.onactive,.list-tag:hover {
+    background: #EAE7E4;
+    color: #4e4e4e;
+    text-decoration: none
+}
+
+.tag-item.onactive {
+    cursor: default
+}
+
 
 
 
@@ -411,7 +567,13 @@ body {
     background: rgba(0, 0, 255, 0.25);
 }
 
-.list-body .center-box > button{
+.list-body .item-box .selected-item2{
+    background: #337ab7;
+    color: #fff;
+    cursor: pointer;
+}
+
+.list-body .center-box > a.add-one{
     display: block;
     color: #434343;
     width: 30px;
@@ -423,7 +585,7 @@ body {
     margin: 20px auto;
     margin-top: 120px;
 }
-.list-body .center-box > button:hover{
+.list-body .center-box > a:hover{
     background: #e7e7e7;
     border-color: #ccc;
     cursor: pointer;

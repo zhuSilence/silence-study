@@ -154,6 +154,35 @@ Dropdowns
     line-height: 1.3;
 }
 
+.btn-xs {
+    padding: 1px 5px;
+    font-size: 10px;
+    line-height: 1.2;
+    border-radius: 2px;
+}
+
+.btn-salad-c {
+    color: #fff;
+    background-color: #dd514c;
+    border-color: #dd514c;
+}
+.btn-salad-c:hover{
+    color: #fff;
+    background-color: #FC605E;
+    border-color: #FC605E;
+}
+
+.btn-salad-d {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+}
+.btn-salad-d:hover{
+    color: #fff;
+    background-color: #286090;
+    border-color: #204d74;
+}
+
 .alert{
     padding: 10px;
 }
@@ -182,14 +211,31 @@ Dropdowns
 .daterangepicker{
     border: 1px solid #ccc;
 }
+.laydate-icon {
+     height: 31px;
+     line-height: 1.3;
+}
 
 /*下拉框每项分隔符*/
 .select2-results__option[aria-selected] {
     border-bottom: 1px solid #f4f4f4;
 }
 
-/** 调整弹出窗样式 **/
-.layer-ext-moon .layui-layer-title {
-    height: 42px;
-    line-height: 42px;
+.btn-primary.active, .btn-primary:active, .open>.dropdown-toggle.btn-primary {
+    color: #fff;
+    background-color: #99cc33;
+    border-color: #3c763d;
+}
+.btn-primary.active:hover{
+    color: #fff;
+    background-color: #99cc33;
+    border-color: #3c763d;
+}
+
+/* 标签输入框默认宽度 */
+.bootstrap-tagsinput {
+    width: 100%;
+}
+.bootstrap-tagsinput .label-info{
+    background-color: #99cc33;
 }
